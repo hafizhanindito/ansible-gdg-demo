@@ -1,0 +1,19 @@
+---
+
+- name: Download application artifacts
+  shell:
+    cmd: gsutil cp gs://artifact-gdg-demo/{{ pkg_name }}/build-{{ pkg_version }}.tar.gz /tmp/{{ pkg_name }}/build-{{ pkg_version }}.tar.gz
+
+- name: Prepare directory
+  file:
+    path: /var/www/{{ pkg_name }}
+    state: directory
+    mode: '0755'
+
+- name: Unarchive the artifact file
+  unarchive:
+    src: /tmp/{{ pkg_name }}/build-{{ pkg_version }}.tar.gz
+    dest: /var/www/{{ pkg_name }}
+    remote_src: yes
+    extra_opts:
+      - --strip-components=2
