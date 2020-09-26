@@ -9,5 +9,5 @@
       index: "index.html"
 
   roles:
-  - nginx
+  - { role: nginx, tags: nginx }
   - { role: deploy, tags: update }
